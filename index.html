@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Encuesta de Automatización</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <h1>Encuesta de Automatización</h1>
+      <p>Detecta procesos manuales y oportunidades de mejora en negocios.</p>
+    </div>
+    <div class="header-actions">
+      <button type="button" class="btn secondary" id="btnVerRegistros">Registros <span id="contador">0</span></button>
+      <button type="button" class="btn secondary" id="btnExportar">Exportar CSV</button>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="progress-wrap">
+      <div class="progress-info"><span id="progresoTexto">Pregunta 1 de 19</span><span id="progresoPct">5%</span></div>
+      <div class="progress"><div id="barraProgreso"></div></div>
+    </div>
+
+    <form id="encuestaForm">
+      <section class="card question active" data-step="1">
+        <span class="step">1</span><h2>¿A qué se dedica principalmente el negocio?</h2>
+        <div class="options">
+          <label><input type="checkbox" name="actividad" value="Comercio"> Comercio</label>
+          <label><input type="checkbox" name="actividad" value="Servicios"> Servicios</label>
+          <label><input type="checkbox" name="actividad" value="Manufactura"> Manufactura</label>
+          <label><input type="checkbox" name="actividad" value="Transporte/logística"> Transporte/logística</label>
+          <label><input type="checkbox" name="actividad" value="Construcción"> Construcción</label>
+          <label><input type="checkbox" name="actividad" value="Distribución"> Distribución</label>
+        </div>
+        <input class="text-input" name="actividadOtro" placeholder="Otro">
+      </section>
+
+      <section class="card question" data-step="2">
+        <span class="step">2</span><h2>¿Cuántas personas participan aproximadamente en las actividades administrativas?</h2>
+        <input class="text-input" type="number" min="0" name="personasAdmin" placeholder="Número de personas">
+      </section>
+
+      <section class="card question" data-step="3">
+        <span class="step">3</span><h2>¿Qué herramientas utilizan para administrar el negocio?</h2>
+        <div class="options">
+          <label><input type="checkbox" name="herramientas" value="Excel"> Excel</label>
+          <label><input type="checkbox" name="herramientas" value="Google Sheets"> Google Sheets</label>
+          <label><input type="checkbox" name="herramientas" value="WhatsApp"> WhatsApp</label>
+          <label><input type="checkbox" name="herramientas" value="Correo electrónico"> Correo electrónico</label>
+          <label><input type="checkbox" name="herramientas" value="Software propio"> Software propio</label>
+          <label><input type="checkbox" name="herramientas" value="ERP"> ERP</label>
+          <label><input type="checkbox" name="herramientas" value="CRM"> CRM</label>
+          <label><input type="checkbox" name="herramientas" value="Sistema de inventario"> Sistema de inventario</label>
+          <label><input type="checkbox" name="herramientas" value="Facturación"> Software de facturación</label>
+        </div>
+        <input class="text-input" name="herramientasOtro" placeholder="Otro">
+      </section>
+
+      <section class="card question" data-step="4">
+        <span class="step">4</span><h2>¿Hay información que actualmente tengan que copiar de un lugar a otro?</h2>
+        <div class="options"><label><input type="radio" name="copiaInfo" value="Sí"> Sí</label><label><input type="radio" name="copiaInfo" value="No"> No</label></div>
+        <input class="text-input" name="copiaInfoDetalle" placeholder="¿Qué información copian?">
+      </section>
+
+      <section class="card question" data-step="5">
+        <span class="step">5</span><h2>¿Qué actividad administrativa les consume más tiempo durante el día?</h2>
+        <textarea name="actividadTiempo" placeholder="Describe la actividad..."></textarea>
+      </section>
+
+      <section class="card question" data-step="6">
+        <span class="step">6</span><h2>¿Qué tareas hacen repetidamente todos los días?</h2>
+        <textarea name="tareasRepetitivas" placeholder="Describe las tareas..."></textarea>
+      </section>
+
+      <section class="card question" data-step="7">
+        <span class="step">7</span><h2>¿Hay alguna tarea que todavía hagan manualmente aunque utilicen computadora o algún sistema?</h2>
+        <div class="options"><label><input type="radio" name="manual" value="Sí"> Sí</label><label><input type="radio" name="manual" value="No"> No</label></div>
+        <textarea name="manualDetalle" placeholder="¿Cuál?"></textarea>
+      </section>
+
+      <section class="card question" data-step="8">
+        <span class="step">8</span><h2>¿Reciben documentos que alguien tiene que capturar manualmente?</h2>
+        <div class="options"><label><input type="radio" name="documentos" value="Sí"> Sí</label><label><input type="radio" name="documentos" value="No"> No</label></div>
+        <div class="options compact">
+          <label><input type="checkbox" name="tipoDocumento" value="Tickets"> Tickets</label>
+          <label><input type="checkbox" name="tipoDocumento" value="Facturas"> Facturas</label>
+          <label><input type="checkbox" name="tipoDocumento" value="Pedidos"> Pedidos</label>
+          <label><input type="checkbox" name="tipoDocumento" value="Formatos"> Formatos</label>
+          <label><input type="checkbox" name="tipoDocumento" value="Cotizaciones"> Cotizaciones</label>
+          <label><input type="checkbox" name="tipoDocumento" value="Órdenes de compra"> Órdenes de compra</label>
+          <label><input type="checkbox" name="tipoDocumento" value="Reportes"> Reportes</label>
+          <label><input type="checkbox" name="tipoDocumento" value="Fotos de documentos"> Fotografías</label>
+        </div>
+      </section>
+
+      <section class="card question" data-step="9">
+        <span class="step">9</span><h2>¿En qué proceso suelen cometerse más errores?</h2>
+        <textarea name="erroresProceso" placeholder="Describe el proceso..."></textarea>
+      </section>
+
+      <section class="card question" data-step="10">
+        <span class="step">10</span><h2>Cuando ocurre un error, ¿qué hacen para corregirlo?</h2>
+        <textarea name="correccionErrores" placeholder="Describe cómo lo corrigen..."></textarea>
+      </section>
+
+      <section class="card question" data-step="11">
+        <span class="step">11</span><h2>¿Alguna vez han perdido información o un documento?</h2>
+        <div class="options"><label><input type="radio" name="perdidaInfo" value="Frecuentemente"> Frecuentemente</label><label><input type="radio" name="perdidaInfo" value="Algunas veces"> Algunas veces</label><label><input type="radio" name="perdidaInfo" value="Rara vez"> Rara vez</label><label><input type="radio" name="perdidaInfo" value="Nunca"> Nunca</label></div>
+      </section>
+
+      <section class="card question" data-step="12">
+        <span class="step">12</span><h2>¿Cuántas veces realizan esa actividad aproximadamente?</h2>
+        <input class="text-input" type="number" min="0" name="frecuencia" placeholder="Cantidad">
+        <select name="frecuenciaPeriodo" class="text-input"><option value="">Periodo</option><option>Por día</option><option>Por semana</option><option>Por mes</option></select>
+      </section>
+
+      <section class="card question" data-step="13">
+        <span class="step">13</span><h2>¿Cuánto tiempo tarda aproximadamente cada operación?</h2>
+        <div class="two-col"><input class="text-input" type="number" min="0" step="0.1" name="minutosOperacion" placeholder="Minutos"><select name="unidadTiempo" class="text-input"><option>minutos</option><option>horas</option></select></div>
+      </section>
+
+      <section class="card question" data-step="14">
+        <span class="step">14</span><h2>¿Cuántas personas participan en ese proceso?</h2>
+        <input class="text-input" type="number" min="0" name="personasProceso" placeholder="Número de personas">
+      </section>
+
+      <section class="card question highlight" data-step="15">
+        <span class="step">15</span><h2>⭐ Si pudiera eliminar una tarea repetitiva de su trabajo, ¿cuál eliminaría?</h2>
+        <textarea name="tareaEliminar" placeholder="Esta es una de las preguntas más importantes..."></textarea>
+      </section>
+
+      <section class="card question" data-step="16">
+        <span class="step">16</span><h2>¿Actualmente utilizan algún sistema para esa actividad?</h2>
+        <div class="options"><label><input type="radio" name="sistemaActividad" value="Sí"> Sí</label><label><input type="radio" name="sistemaActividad" value="No"> No</label></div>
+        <input class="text-input" name="sistemaNombre" placeholder="¿Cuál?">
+      </section>
+
+      <section class="card question" data-step="17">
+        <span class="step">17</span><h2>¿Hay algo que su sistema actual no haga y que tengan que hacer manualmente?</h2>
+        <div class="options"><label><input type="radio" name="limitacionSistema" value="Sí"> Sí</label><label><input type="radio" name="limitacionSistema" value="No"> No</label></div>
+        <textarea name="limitacionDetalle" placeholder="¿Qué tienen que hacer manualmente?"></textarea>
+      </section>
+
+      <section class="card question" data-step="18">
+        <span class="step">18</span><h2>¿Han considerado automatizar alguno de estos procesos?</h2>
+        <div class="options">
+          <label><input type="checkbox" name="automatizar" value="Captura de información"> Captura de información</label>
+          <label><input type="checkbox" name="automatizar" value="Excel"> Excel</label>
+          <label><input type="checkbox" name="automatizar" value="Reportes"> Reportes</label>
+          <label><input type="checkbox" name="automatizar" value="Cotizaciones"> Cotizaciones</label>
+          <label><input type="checkbox" name="automatizar" value="Inventarios"> Inventarios</label>
+          <label><input type="checkbox" name="automatizar" value="Facturación"> Facturación</label>
+          <label><input type="checkbox" name="automatizar" value="Pedidos"> Pedidos</label>
+          <label><input type="checkbox" name="automatizar" value="Correos"> Correos</label>
+          <label><input type="checkbox" name="automatizar" value="WhatsApp"> WhatsApp</label>
+          <label><input type="checkbox" name="automatizar" value="Documentos/PDF"> Documentos/PDF</label>
+          <label><input type="checkbox" name="automatizar" value="Asistencia"> Asistencia</label>
+        </div>
+      </section>
+
+      <section class="card question" data-step="19">
+        <span class="step">19</span><h2>¿Qué creen que les haría ahorrar más tiempo?</h2>
+        <textarea name="ahorroTiempo" placeholder="Describe la mejora..."></textarea>
+        <hr>
+        <h3>Datos de seguimiento</h3>
+        <input class="text-input" name="negocio" placeholder="Nombre del negocio (opcional)">
+        <input class="text-input" name="contacto" placeholder="Nombre/contacto (opcional)">
+        <input class="text-input" type="tel" name="telefono" placeholder="Teléfono (opcional)">
+        <textarea name="notas" placeholder="Notas adicionales"></textarea>
+      </section>
+
+      <div class="navigation">
+        <button type="button" class="btn secondary" id="btnAnterior">← Anterior</button>
+        <button type="button" class="btn primary" id="btnSiguiente">Siguiente →</button>
+        <button type="submit" class="btn success" id="btnGuardar">Guardar encuesta ✓</button>
+      </div>
+    </form>
+
+    <section id="registrosPanel" class="card hidden">
+      <div class="panel-head"><h2>Encuestas guardadas</h2><button class="btn danger" id="btnBorrarTodo">Borrar todo</button></div>
+      <div id="listaRegistros"></div>
+    </section>
+  </main>
+  <script src="js/app.js"></script>
+</body>
+</html>
