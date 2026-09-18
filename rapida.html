@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Encuesta Rápida - Automatización</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <style>.hint{color:#647084;font-size:14px;margin:-14px 0 18px}</style>
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <h1>Encuesta Rápida</h1>
+      <p>6 preguntas clave para usar durante la visita.</p>
+    </div>
+    <div class="header-actions">
+      <button type="button" class="btn secondary" id="btnVerRegistros">Registros <span id="contador">0</span></button>
+      <button type="button" class="btn secondary" id="btnExportar">Exportar CSV</button>
+      <a href="index.html" class="btn secondary">Versión completa →</a>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="progress-wrap">
+      <div class="progress-info"><span id="progresoTexto">Pregunta 1 de 6</span><span id="progresoPct">17%</span></div>
+      <div class="progress"><div id="barraProgreso"></div></div>
+    </div>
+
+    <form id="encuestaForm">
+      <section class="card question active" data-step="1">
+        <span class="step">1</span><h2>¿Hay información que actualmente tengan que copiar de un lugar a otro?</h2>
+        <p class="hint">Ej: de papel a Excel, de WhatsApp a un sistema, de un formato a otro.</p>
+        <div class="options"><label><input type="radio" name="copiaInfo" value="Sí"> Sí</label><label><input type="radio" name="copiaInfo" value="No"> No</label></div>
+        <input class="text-input" name="copiaInfoDetalle" placeholder="¿Qué información copian?">
+      </section>
+
+      <section class="card question" data-step="2">
+        <span class="step">2</span><h2>¿Reciben documentos que alguien tiene que capturar manualmente?</h2>
+        <div class="options"><label><input type="radio" name="documentos" value="Sí"> Sí</label><label><input type="radio" name="documentos" value="No"> No</label></div>
+        <div class="options compact">
+          <label><input type="checkbox" name="tipoDocumento" value="Tickets"> Tickets</label>
+          <label><input type="checkbox" name="tipoDocumento" value="Facturas"> Facturas</label>
+          <label><input type="checkbox" name="tipoDocumento" value="Pedidos"> Pedidos</label>
+          <label><input type="checkbox" name="tipoDocumento" value="Cotizaciones"> Cotizaciones</label>
+          <label><input type="checkbox" name="tipoDocumento" value="Órdenes de compra"> Órdenes de compra</label>
+          <label><input type="checkbox" name="tipoDocumento" value="Reportes"> Reportes</label>
+        </div>
+      </section>
+
+      <section class="card question" data-step="3">
+        <span class="step">3</span><h2>¿Qué tareas hacen repetidamente todos los días?</h2>
+        <textarea name="tareasRepetitivas" placeholder="Describe las tareas..."></textarea>
+      </section>
+
+      <section class="card question" data-step="4">
+        <span class="step">4</span><h2>¿Cuánto tiempo o dinero pierden a la semana cuando algo se captura mal o se traspapela?</h2>
+        <textarea name="costoError" placeholder="Ej: 'unas 3-4 horas a la semana', 'a veces se nos va un pago mal registrado'..."></textarea>
+      </section>
+
+      <section class="card question highlight" data-step="5">
+        <span class="step">5</span><h2>⭐ Si pudiera eliminar una tarea repetitiva de su trabajo, ¿cuál eliminaría?</h2>
+        <textarea name="tareaEliminar" placeholder="Esta es la pregunta más importante de la visita..."></textarea>
+      </section>
+
+      <section class="card question" data-step="6">
+        <span class="step">6</span><h2>¿Estaría interesado en ver una demostración rápida de cómo esto se puede automatizar?</h2>
+        <div class="options"><label><input type="radio" name="interes" value="Sí, ahora"> Sí, ahora</label><label><input type="radio" name="interes" value="Sí, después"> Sí, después</label><label><input type="radio" name="interes" value="No por ahora"> No por ahora</label></div>
+        <hr>
+        <h3>Datos de seguimiento</h3>
+        <input class="text-input" name="negocio" placeholder="Nombre del negocio">
+        <input class="text-input" name="contacto" placeholder="Nombre/contacto">
+        <input class="text-input" type="tel" name="telefono" placeholder="Teléfono (opcional)">
+        <textarea name="notas" placeholder="Notas adicionales de la conversación"></textarea>
+      </section>
+
+      <div class="navigation">
+        <button type="button" class="btn secondary" id="btnAnterior">← Anterior</button>
+        <button type="button" class="btn primary" id="btnSiguiente">Siguiente →</button>
+        <button type="submit" class="btn success" id="btnGuardar">Guardar visita ✓</button>
+      </div>
+    </form>
+
+    <section id="registrosPanel" class="card hidden">
+      <div class="panel-head"><h2>Visitas guardadas</h2><button class="btn danger" id="btnBorrarTodo">Borrar todo</button></div>
+      <div id="listaRegistros"></div>
+    </section>
+  </main>
+  <script src="js/rapida.js"></script>
+</body>
+</html>
