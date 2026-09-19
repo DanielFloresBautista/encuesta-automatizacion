@@ -70,13 +70,59 @@ function eliminar(id){
 function escapeHTML(s){return String(s).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]))}
 
 function csvCell(v){return `"${String(v??"").replace(/"/g,'""')}"`}
-function exportarCSV(){
-  const rs=registros(); if(!rs.length){alert("No hay registros para exportar.");return}
-  const keys=Object.keys(rs[0]);
-  const csv=[keys.map(csvCell).join(","),...rs.map(r=>keys.map(k=>csvCell(r[k])).join(","))].join("\n");
-  const blob=new Blob(["\ufeff"+csv],{type:"text/csv;charset=utf-8"});
-  const a=document.createElement("a"); a.href=URL.createObjectURL(blob); a.download="visitas_rapidas.csv"; a.click(); URL.revokeObjectURL(a.href);
+// 1. Exportación corregida para Excel en español (delimitador ;)
+function exportarCSV() {
+  const rs = registros();
+  if (!rs.length) {
+    alert("No hay registros para exportar.");
+    return;
+  }
+  const keys = Object.keys(rs[0]);
+  
+  // Uso de punto y coma (;) para compatibilidad nativa con Excel LATAM
+  const csv = [
+    keys.map(k => `"${String(k).replace(/"/g, '""')}"`).join(";"),
+    ...rs.map(r => keys.map(k => `"${String(r[k] ?? "").replace(/"/g, '""')}"`).join(";"))
+  ].join("\n");
+
+  const blob = new Blob(["\ufeff" + csv], { type: "text/csv;charset=utf-8;" });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = `encuestas_${Date.now()}.csv`;
+  a.click();
+  URL.revokeObjectURL(a.href);
 }
+
+// 2. Control de visibilidad (Toggle) del panel de registros
+function toggleRegistros() {
+  const panel = document.getElementById("registrosPanel");
+  if (panel.classList.contains("hidden")) {
+    mostrarRegistros();
+  } else {
+    panel.classList.add("hidden");
+  }
+}
+
+// 3. Validación mínima antes de guardar
+form.addEventListener("submit", e => {
+  e.preventDefault();
+  const data = buildData();
+  
+  if (!data.negocio && !data.contacto && !data.tareaEliminar) {
+    alert("Ingresa al menos el nombre del negocio o la tarea a eliminar antes de guardar.");
+    return;
+  }
+
+  guardar(data);
+  alert("Encuesta guardada correctamente.");
+  form.reset();
+  current = 0;
+  updateUI();
+  document.getElementById("registrosPanel").classList.add("hidden");
+});
+
+// Asignación de evento al botón de registros
+document.getElementById("btnVerRegistros").onclick = toggleRegistros;
 document.getElementById("btnExportar").onclick=exportarCSV;
 document.getElementById("btnVerRegistros").onclick=mostrarRegistros;
 document.getElementById("btnBorrarTodo").onclick=()=>{if(confirm("¿Borrar todas las visitas de este dispositivo?")){localStorage.removeItem(STORAGE_KEY);actualizarContador();mostrarRegistros()}};
